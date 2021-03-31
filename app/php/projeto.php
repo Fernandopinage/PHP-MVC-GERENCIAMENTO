@@ -69,7 +69,7 @@
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Valor do projeto:</label>
                             <input type="text" class="form-control"  id="valor" placeholder="">
-                            <span class="input-group-text">R$</span>
+                            
                         </div>
                         <div class="mb-3">
                             <select id="empresa" class="form-control" name="empresa">
