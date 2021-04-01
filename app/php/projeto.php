@@ -35,36 +35,36 @@ if (isset($_POST['cadastraprojeto'])) {
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Codigo</th>
-                <th scope="col">Projeto</th>
-                <th scope="col">Data de Inicio</th>
-                <th scope="col">Data Termino</th>
-                <th scope="col">Valor</th>
-                <th scope="col">Empresa</th>
-                <th scope="col">Participantes</th>
-                <th scope="col">Alterar</th>
-                <th scope="col">Excluir</th>
+                <td scope="col">Codigo</td>
+                <td scope="col">Projeto</td>
+                <td scope="col">Data de Inicio</td>
+                <td scope="col">Data Termino</td>
+                <td scope="col">Valor</td>
+                <td scope="col">Empresa</td>
+                <td scope="col">Participantes</td>
+                <td scope="col">Alterar</td>
+                <td scope="col">Excluir</td>
             </tr>
         </thead>
         <tbody>
             <?php
 
             foreach ($dados as $i => $obj) {
-
-                echo "<tr>";
-                echo "<td>" . $obj->getID() . "</td>";
-                echo "<td>" . $obj->getProjeto() . "</td>";
-                echo "<td>" . $obj->getDatainicio() . "</td>";
-                echo "<td>" . $obj->getDatafim() . "</td>";
-                echo "<td>" . $obj->getValor() . "</td>";
-                echo "<td>" . $obj->getEmpresa() . "</td>";
-                echo "<td>" . $obj->getParticipantes() . "</td>";
-                echo "<td> <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#editar" .  $obj->getID() . "'> Editar</button></td>";
-                echo "<td>";
-                echo "</td>";
-
-                echo "</tr>";
+            ?>
+                <tr>
+                <td><?php echo $obj->getID();?></td>
+                <td><?php echo $obj->getProjeto();?></td>
+                <td><?php echo $obj->getDatainicio();?></td>
+                <td><?php echo $obj->getDatafim();?></td>
+                <td><?php echo $obj->getValor();?></td>
+                <tdh><?php echo $obj->getEmpresa();?></td>
+                <td><?php echo $obj->getParticipantes();?></td>
+                <td><button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editar<?php echo $obj->getID();?>">Editar</button></th>
+                <td>Excluir</th>
+                </tr>
+            <?php
             }
+
 
             ?>
         </tbody>
@@ -123,17 +123,17 @@ if (isset($_POST['cadastraprojeto'])) {
 
     <!-- fim modal -->
     <!-- Modal Editar -->
-    <div class="modal fade" id="editar<?php echo $obj->getID()?>" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
+    <div class="modal fade" id="editar<?php echo $obj->getID() ?>" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editar">Modal title <?php echo $obj->getID()?></h5>
+                    <h5 class="modal-title" id="editar">Modal title <?php echo $obj->getID() ?></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
