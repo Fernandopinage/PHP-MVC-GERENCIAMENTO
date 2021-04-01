@@ -3,11 +3,11 @@
 include_once "../class/classProjeto.php";
 include_once "../dao/Projeto.php";
 $Projeto = new Projeto();
+$ClassProjeto = new ClassProjeto();
 $dados = $Projeto->selectProjeto();
 
 if (isset($_POST['cadastraprojeto'])) {
 
-    $ClassProjeto = new ClassProjeto();
     $ClassProjeto->setProjeto($_POST['projeto']);
     $ClassProjeto->setDatainicio($_POST['datainicio']);
     $ClassProjeto->setDatafim($_POST['datafim']);
@@ -18,12 +18,33 @@ if (isset($_POST['cadastraprojeto'])) {
     $Projeto->insertProjeto($ClassProjeto);
 }
 
+if (isset($_POST['editar'])) {
+
+    $id = $_POST['id'];
+    $projeto = $_POST['projeto'];
+    $datainicio = $_POST['datainicio'];
+    $datafim = $_POST['datafim'];
+    $valor = $_POST['valor'];
+    $empresa = $_POST['empresa'];
+    $participantes = $_POST['participantes'];
+
+    $ClassProjeto->setID($id);
+    $ClassProjeto->setProjeto($projeto);
+    $ClassProjeto->setDatainicio($datainicio);
+    $ClassProjeto->setDatafim($datafim);
+    $ClassProjeto->setValor($valor);
+    $ClassProjeto->setEmpresa($empresa);
+    $ClassProjeto->setParticipantes($participantes);
+
+    $Projeto->editarProjeto($ClassProjeto);
+}
 
 
 ?>
 
 
 <div class="container">
+
 
     <!-- Button trigger modal -->
     <div class="text-left">
@@ -82,15 +103,20 @@ if (isset($_POST['cadastraprojeto'])) {
                     <td>Excluir</td>
                 </tr>
 
-<!---------------------------------------------------- Modal Editar ----------------------------------------------------------------->
+                <!---------------------------------------------------- Modal Editar ----------------------------------------------------------------->
                 <div class="modal fade" id="editar<?php echo $obj->getID() ?>" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="editar">Modal title <?php echo $obj->getID() ?></h5>
+                                <h5 class="modal-title" id="editar"><?php echo $obj->getProjeto() ?></h5>
 
                             </div>
+
+
                             <div class="modal-body">
+                                <div class="recebidos">
+
+                                </div>
                                 <form class="form-edita" method='POST'>
                                     <input type="hidden" class="form-control" name="id" id="id" placeholder="" value="<?php echo $obj->getID(); ?>">
                                     <div class="mb-2">
@@ -165,7 +191,7 @@ if (isset($_POST['cadastraprojeto'])) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form class="form-projeto" method='POST'>
+                <form action="" class="form-projeto" method='POST'>
                     <div class="mb-2">
                         <label for="recipient-name" class="col-form-label">Nome do Projeto:</label>
                         <input type="text" class="form-control" name="projeto" id="projeto" placeholder="Projeto">
@@ -207,12 +233,6 @@ if (isset($_POST['cadastraprojeto'])) {
 </div>
 
 <!----------------------------------------------------- fim modal -------------------------------------------------------------->
-
-
-
-
-
-
 <!----------------------------------------------------- Campo "Valor" aceita so numeros ----------------------------------------------->
 <script>
     var filtroTeclas = function(event) {
@@ -221,26 +241,4 @@ if (isset($_POST['cadastraprojeto'])) {
 </script>
 
 
-<script>
-    $(function() {
-
-        $('.form-edita').submit(function() {
-
-            $.ajax({
-
-                url: '../ajax/edita', // URL para onde vai ser enviados
-                type: 'POST', // Formado de envio
-                data: $('.form-edita').serialize(), // class do formulario 
-                success: function(data) { // caso der certo vai aparecer os dados dentro de uma div
-
-
-                    //$('.recebidos').html('<div class="alert alert-success alert-dismissible fade show" role="alert">Registro salvo com sucesso  <button type="button" class="close" data-dismiss="alert" aria-label="Close">    <span aria-hidden="true">&times;</span>  </button></div>'); // imprimindo os dados do formulario na div
-                    //document.location.reload(true);
-                }
-            });
-            return false;
-
-        });
-    });
-</script>
 <!----------------------------------------------------- fim ------------------------------------------------------------------------>
