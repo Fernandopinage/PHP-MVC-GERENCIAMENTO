@@ -60,6 +60,11 @@ class Projeto  extends Dao{
       
     }
 
+    public function deleteProjeto(){
+
+        
+    }
+
 }
 
 

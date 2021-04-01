@@ -40,6 +40,7 @@ if (isset($_POST['editar'])) {
 }
 
 
+
 ?>
 
 
@@ -100,7 +101,8 @@ if (isset($_POST['editar'])) {
                     </td>
                     <td><?php echo $obj->getParticipantes(); ?></td>
                     <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editar<?php echo $obj->getID(); ?>">Editar</button></td>
-                    <td>Excluir</td>
+                    <td><a class="btn btn-danger" onclick="deletar(' . $obj->getID() . ');">Deletar</a></td>
+                    </td>
                 </tr>
 
                 <!---------------------------------------------------- Modal Editar ----------------------------------------------------------------->
@@ -239,6 +241,17 @@ if (isset($_POST['editar'])) {
         return ((event.charCode >= 48 && event.charCode <= 57) || (event.keyCode == 45 || event.charCode == 46))
     }
 </script>
-
+<script>
+    function deletar(id) {
+        var mensagem = 'Deseja deletar esse registro ?';
+        if (window.confirm(mensagem)) {
+            window.open('disciplinaLista.php?acao=deletar&id=' + id, '_self');
+            return true;
+            //window.location = this.window.location;                    
+        } else {
+            return false;
+        }
+    }
+</script>
 
 <!----------------------------------------------------- fim ------------------------------------------------------------------------>
