@@ -59,7 +59,7 @@ if (isset($_POST['cadastraprojeto'])) {
                     <td><?php echo $obj->getValor(); ?></td>
                     <td><?php echo $obj->getEmpresa(); ?></td>
                     <td><?php echo $obj->getParticipantes(); ?></td>
-                    <td><button type="button" class="btn btn-prinary" data-bs-toggle="modal" data-bs-target="#editar<?php echo $obj->getID(); ?>">Editar</button></td>
+                    <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editar<?php echo $obj->getID(); ?>">Editar</button></td>
                     <td>Excluir</td>
                 </tr>
             <?php
