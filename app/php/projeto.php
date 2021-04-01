@@ -57,93 +57,153 @@ if (isset($_POST['cadastraprojeto'])) {
                     <td><?php echo $obj->getDatainicio(); ?></td>
                     <td><?php echo $obj->getDatafim(); ?></td>
                     <td><?php echo $obj->getValor(); ?></td>
-                    <td><?php echo $obj->getEmpresa(); ?></td>
+                    <td>
+
+                        <?php
+                        if ($obj->getEmpresa() == 01) {
+
+                            echo '<option value="01" selected>Baixo</option>';
+                        } elseif ($obj->getEmpresa() == 02) {
+
+                            echo '<option value="02">Médio</option>';
+                        } else {
+
+                            echo '<option value="03">Alto</option>';
+                        }
+
+                        ?>
+
+                    </td>
                     <td><?php echo $obj->getParticipantes(); ?></td>
                     <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editar<?php echo $obj->getID(); ?>">Editar</button></td>
                     <td>Excluir</td>
                 </tr>
-            <?php
+
+                <!---------------------------------------------------- Modal Editar ----------------------------------------------------------------->
+                <div class="modal fade" id="editar<?php echo $obj->getID() ?>" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editar">Modal title <?php echo $obj->getID() ?></h5>
+
+                            </div>
+                            <div class="modal-body">
+                                <form class="form-projeto" method='POST'>
+                                    <div class="mb-2">
+                                        <label for="recipient-name" class="col-form-label">Nome do Projeto:</label>
+                                        <input type="text" class="form-control" name="projeto" id="projeto" placeholder="Projeto" value="<?php echo $obj->getProjeto(); ?>">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label for="recipient-name" class="col-form-label">Data de início:</label>
+                                        <input type="date" class="form-control" name="datainicio" id="datainicio" placeholder="Litro" value="<?php echo $obj->getDatainicio(); ?>">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label for="recipient-name" class="col-form-label">Data de término:</label>
+                                        <input type="date" class="form-control" name="datafim" id="datafim" placeholder="Litro" value="<?php echo $obj->getDatafim(); ?>">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">Valor do projeto:</label>
+                                        <input type="text" class="form-control" name="valor" id="valor" placeholder="R$" value="<?php echo $obj->getValor(); ?>">
+
+                                    </div>
+                                    <div class="mb-3">
+                                        <select id="empresa" class="form-control" name="empresa">
+                                            <?php
+
+                                            if ($obj->getEmpresa() == 01) {
+
+                                                echo '<option value="01" selected>Baixo</option>';
+                                            } elseif ($obj->getEmpresa() == 02) {
+
+                                                echo '<option value="02">Médio</option>';
+                                            } else {
+
+                                                echo '<option value="03">Alto</option>';
+                                            }
+
+                                            ?>
+
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">Participantes:</label>
+                                        <input type="text" class="form-control" name="participantes" id="participantes" placeholder="Ex: Carlos ">
+                                    </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancela</button>
+                                <input type="submit" class="btn btn-primary" value="Editar Registro" name="editar">
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+</div>
+
+<!---------------------------------------------------- Modal FIM ----------------------------------------------------------------->
+<?php
             }
 
 
-            ?>
-        </tbody>
-    </table>
+?>
+</tbody>
+</table>
 
 
-    <!-- Modal Principal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog  modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Projeto</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form class="form-projeto" method='POST'>
-                        <div class="mb-2">
-                            <label for="recipient-name" class="col-form-label">Nome do Projeto:</label>
-                            <input type="text" class="form-control" name="projeto" id="projeto" placeholder="Projeto">
-                        </div>
-                        <div class="mb-2">
-                            <label for="recipient-name" class="col-form-label">Data de início:</label>
-                            <input type="date" class="form-control" name="datainicio" id="datainicio" placeholder="Litro">
-                        </div>
-                        <div class="mb-2">
-                            <label for="recipient-name" class="col-form-label">Data de término:</label>
-                            <input type="date" class="form-control" name="datafim" id="datafim" placeholder="Litro">
-                        </div>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Valor do projeto:</label>
-                            <input type="text" class="form-control" name="valor" id="valor" placeholder="R$">
-
-                        </div>
-                        <div class="mb-3">
-                            <select id="empresa" class="form-control" name="empresa">
-                                <option value="01" selected>Baixo</option>
-                                <option value="02">Médio</option>
-                                <option value="03">Alto</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Participantes:</label>
-                            <input type="text" class="form-control" name="participantes" id="participantes" placeholder="Ex: Carlos ">
-                        </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancela</button>
-                    <input type="submit" class="btn btn-success" value="Cadastro Projeto" name="cadastraprojeto">
-                </div>
-                </form>
+<!------------------------------------------------ Modal Cadastro ------------------------------------------------------------->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Projeto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="modal-body">
+                <form class="form-projeto" method='POST'>
+                    <div class="mb-2">
+                        <label for="recipient-name" class="col-form-label">Nome do Projeto:</label>
+                        <input type="text" class="form-control" name="projeto" id="projeto" placeholder="Projeto">
+                    </div>
+                    <div class="mb-2">
+                        <label for="recipient-name" class="col-form-label">Data de início:</label>
+                        <input type="date" class="form-control" name="datainicio" id="datainicio" placeholder="Litro">
+                    </div>
+                    <div class="mb-2">
+                        <label for="recipient-name" class="col-form-label">Data de término:</label>
+                        <input type="date" class="form-control" name="datafim" id="datafim" placeholder="Litro">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Valor do projeto:</label>
+                        <input type="text" class="form-control" name="valor" id="valor" placeholder="R$">
+
+                    </div>
+                    <div class="mb-3">
+                        <select id="empresa" class="form-control" name="empresa">
+                            <option value="01" selected>Baixo</option>
+                            <option value="02">Médio</option>
+                            <option value="03">Alto</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Participantes:</label>
+                        <input type="text" class="form-control" name="participantes" id="participantes" placeholder="Ex: Carlos ">
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancela</button>
+                <input type="submit" class="btn btn-success" value="Cadastro Projeto" name="cadastraprojeto">
+            </div>
+            </form>
         </div>
     </div>
+</div>
 
-    <!-- fim modal -->
-    <!-- Modal Editar -->
-    <div class="modal fade" id="editar<?php echo $obj->getID() ?>" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editar">Modal title <?php echo $obj->getID() ?></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
+<!----------------------------------------------------- fim modal -------------------------------------------------------------->
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal -->
 
 
 </div>
