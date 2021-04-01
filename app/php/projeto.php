@@ -52,15 +52,15 @@ if (isset($_POST['cadastraprojeto'])) {
             foreach ($dados as $i => $obj) {
             ?>
                 <tr>
-                <td><?php echo $obj->getID();?></td>
-                <td><?php echo $obj->getProjeto();?></td>
-                <td><?php echo $obj->getDatainicio();?></td>
-                <td><?php echo $obj->getDatafim();?></td>
-                <td><?php echo $obj->getValor();?></td>
-                <tdh><?php echo $obj->getEmpresa();?></td>
-                <td><?php echo $obj->getParticipantes();?></td>
-                <td><button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editar<?php echo $obj->getID();?>">Editar</button></th>
-                <td>Excluir</th>
+                    <td><?php echo $obj->getID(); ?></td>
+                    <td><?php echo $obj->getProjeto(); ?></td>
+                    <td><?php echo $obj->getDatainicio(); ?></td>
+                    <td><?php echo $obj->getDatafim(); ?></td>
+                    <td><?php echo $obj->getValor(); ?></td>
+                    <td><?php echo $obj->getEmpresa(); ?></td>
+                    <td><?php echo $obj->getParticipantes(); ?></td>
+                    <td><button type="button" class="btn btn-prinary" data-bs-toggle="modal" data-bs-target="#editar<?php echo $obj->getID(); ?>">Editar</button></td>
+                    <td>Excluir</td>
                 </tr>
             <?php
             }
