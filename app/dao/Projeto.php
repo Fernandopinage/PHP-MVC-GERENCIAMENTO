@@ -33,8 +33,8 @@ class Projeto  extends Dao{
 
             $ClassProjeto->setID($row['projeto_id']);
             $ClassProjeto->setProjeto($row['projeto_projeto']);
-            $ClassProjeto->setDatainicio($row['projeto_datainicio']);
-            $ClassProjeto->setDatafim($row['projeto_datafim']);
+            $ClassProjeto->setDatainicio($row['projeto_datainicio'] = date("d/m/Y")  );
+            $ClassProjeto->setDatafim($row['projeto_datafim'] = date("d/m/Y"));
             $ClassProjeto->setValor($row['projeto_valor']);
             $ClassProjeto->setEmpresa($row['projeto_empresa']);
             $ClassProjeto->setParticipantes($row['projeto_participantes']);
@@ -44,7 +44,24 @@ class Projeto  extends Dao{
         return $array;
     }
 
+    public function editarProjeto(ClassProjeto $ClassProjeto){
+       
+        $sql ="UPDATE `projeto` SET `projeto_projeto`=:projeto,`projeto_datainicio`=:datainicio, `projeto_datafim`=:datafim, `projeto_valor`=:valor, `projeto_empresa`=:empresa, `projeto_participantes`=:participantes WHERE `projeto_id`=:id";
+        
+        $update = $this->con->prepare($sql);
+        $update->bindValue(":id", $ClassProjeto->getID());
+        $update->bindValue(":projeto", $ClassProjeto->getProjeto());
+        $update->bindValue(":datainicio", $ClassProjeto->getDatainicio());
+        $update->bindValue(":datafim", $ClassProjeto->getDatafim());
+        $update->bindValue(":valor", $ClassProjeto->getValor());
+        $update->bindValue(":empresa",$ClassProjeto->getEmpresa());
+        $update->bindValue(":participantes",$ClassProjeto->getParticipantes());
+        $update->execute();
+      
+    }
+
 }
+
 
 
 ?>

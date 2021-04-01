@@ -32,7 +32,7 @@ if (isset($_POST['cadastraprojeto'])) {
         </button>
     </div>
     <br>
-    <table class="table">
+    <table class="table table-hover">
         <thead>
             <tr>
                 <td scope="col">Codigo</td>
@@ -52,6 +52,9 @@ if (isset($_POST['cadastraprojeto'])) {
             foreach ($dados as $i => $obj) {
             ?>
                 <tr>
+
+
+
                     <td><?php echo $obj->getID(); ?></td>
                     <td><?php echo $obj->getProjeto(); ?></td>
                     <td><?php echo $obj->getDatainicio(); ?></td>
@@ -79,7 +82,7 @@ if (isset($_POST['cadastraprojeto'])) {
                     <td>Excluir</td>
                 </tr>
 
-                <!---------------------------------------------------- Modal Editar ----------------------------------------------------------------->
+<!---------------------------------------------------- Modal Editar ----------------------------------------------------------------->
                 <div class="modal fade" id="editar<?php echo $obj->getID() ?>" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
@@ -88,7 +91,8 @@ if (isset($_POST['cadastraprojeto'])) {
 
                             </div>
                             <div class="modal-body">
-                                <form class="form-projeto" method='POST'>
+                                <form class="form-edita" method='POST'>
+                                    <input type="hidden" class="form-control" name="id" id="id" placeholder="" value="<?php echo $obj->getID(); ?>">
                                     <div class="mb-2">
                                         <label for="recipient-name" class="col-form-label">Nome do Projeto:</label>
                                         <input type="text" class="form-control" name="projeto" id="projeto" placeholder="Projeto" value="<?php echo $obj->getProjeto(); ?>">
@@ -128,7 +132,7 @@ if (isset($_POST['cadastraprojeto'])) {
 
                                     <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Participantes:</label>
-                                        <input type="text" class="form-control" name="participantes" id="participantes" placeholder="Ex: Carlos ">
+                                        <input type="text" class="form-control" name="participantes" id="participantes" value="<?php echo $obj->getParticipantes(); ?>" placeholder="Ex: Carlos ">
                                     </div>
 
                             </div>
@@ -176,7 +180,7 @@ if (isset($_POST['cadastraprojeto'])) {
                     </div>
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Valor do projeto:</label>
-                        <input type="text" class="form-control" name="valor" id="valor" placeholder="R$">
+                        <input type="text" class="form-control" name="valor" id="valor" placeholder="R$" onkeypress='return filtroTeclas(event)'>
 
                     </div>
                     <div class="mb-3">
@@ -206,4 +210,37 @@ if (isset($_POST['cadastraprojeto'])) {
 
 
 
-</div>
+
+
+
+<!----------------------------------------------------- Campo "Valor" aceita so numeros ----------------------------------------------->
+<script>
+    var filtroTeclas = function(event) {
+        return ((event.charCode >= 48 && event.charCode <= 57) || (event.keyCode == 45 || event.charCode == 46))
+    }
+</script>
+
+
+<script>
+    $(function() {
+
+        $('.form-edita').submit(function() {
+
+            $.ajax({
+
+                url: '../ajax/edita', // URL para onde vai ser enviados
+                type: 'POST', // Formado de envio
+                data: $('.form-edita').serialize(), // class do formulario 
+                success: function(data) { // caso der certo vai aparecer os dados dentro de uma div
+
+
+                    //$('.recebidos').html('<div class="alert alert-success alert-dismissible fade show" role="alert">Registro salvo com sucesso  <button type="button" class="close" data-dismiss="alert" aria-label="Close">    <span aria-hidden="true">&times;</span>  </button></div>'); // imprimindo os dados do formulario na div
+                    //document.location.reload(true);
+                }
+            });
+            return false;
+
+        });
+    });
+</script>
+<!----------------------------------------------------- fim ------------------------------------------------------------------------>
