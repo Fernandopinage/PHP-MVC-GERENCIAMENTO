@@ -2,6 +2,7 @@
 <?php
 include_once "../class/classProjeto.php";
 include_once "../dao/Projeto.php";
+session_start();
 $Projeto = new Projeto();
 $ClassProjeto = new ClassProjeto();
 $dados = $Projeto->selectProjeto();
@@ -102,7 +103,7 @@ if (isset($_POST['editar'])) {
                     </td>
                     <td><?php echo $obj->getParticipantes(); ?></td>
                     <td><button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editar<?php echo $obj->getID(); ?>">Editar</button></td>
-                    <td><a class="btn btn-danger btn-sm" onclick="deletar(' . $obj->getID() . ');">Deletar</a></td>
+                    <td><a class="btn btn-danger btn-sm"  id="apagar" name='apagar' onclick="deletar('<?php echo $obj->getID(); ?>');">Deletar</a></td>
                     <td><button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#simular<?php echo $obj->getID(); ?>">Investimento</button></td>
                     </td>
                 </tr>
@@ -191,16 +192,15 @@ if (isset($_POST['editar'])) {
 
                 <form class="form-simular" method='POST'>
                     <input type="hidden" class="form-control" name="simularid" id="simularid" placeholder="" value="<?php echo $obj->getID(); ?>">
-                    <div class="mb-2">
-
-                        <input type="hidden" class="form-control" name="simularprojeto" id="simularprojeto" placeholder="Projeto" value="<?php echo $obj->getProjeto(); ?>">
-                    </div>
+                    <input type="hidden" class="form-control" name="simularprojeto" id="simularprojeto" placeholder="Projeto" value="<?php echo $obj->getProjeto(); ?>">
+                    <input type="hidden" class="form-control" name="simularvalor" id="simularvalor" placeholder="R$" value="<?php echo $obj->getValor(); ?>">
                     <div class="mb-2">
                         <label for="recipient-name" class="col-form-label">Valor do investimento:</label>
-                        <input type="text" class="form-control" name="simularvalor" id="simularvalor" placeholder="R$" onkeypress='return filtroTeclas(event)'>
+                        <input type="text" class="form-control" name="simularproposta" id="simularproposta" placeholder="R$" onkeypress='return filtroTeclas(event)'>
                     </div>
 
                     <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancela</button>
                         <input type="button" class="btn btn btn-sm" id="calcular" name="calcular" value="Calcular" style="background-color: rgb(253,138,10); color:#fff;">
 
                     </div>
@@ -279,10 +279,24 @@ if (isset($_POST['editar'])) {
     }
 </script>
 <script>
-    function deletar(id) {
+    function deletar(apagar) {
         var mensagem = 'Deseja deletar esse registro ?';
         if (window.confirm(mensagem)) {
-            window.open('disciplinaLista.php?acao=deletar&id=' + id, '_self');
+            //window.open('disciplinaLista.php?acao=deletar&id=' + id, '_self');
+           
+            $.ajax({
+
+                type: 'POST', // Formado de envio
+                url: '../ajax/delete.php', // URL para onde vai ser enviados
+                data: {apagar: apagar},
+                success: function(data) {
+                    console.log(idp)
+                }
+
+
+            });
+            return false;
+
             return true;
             //window.location = this.window.location;                    
         } else {
@@ -301,7 +315,7 @@ if (isset($_POST['editar'])) {
                 url: '../ajax/simular.php', // URL para onde vai ser enviados
                 data: $('.form-simular'),
                 success: function(data) {
-                    $('.dialogo').html(data);
+                    console.log(msg)
                 }
 
 
