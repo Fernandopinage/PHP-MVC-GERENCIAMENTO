@@ -3,8 +3,9 @@
 include_once "../dao/Projeto.php";
 $projeto = new Projeto();
 
-$a = $_POST['apagar'];
-echo json_encode($a)
+$id = $_POST['apagar'];
+$projeto->deleteProjeto($id);
+
 
     
 ?>

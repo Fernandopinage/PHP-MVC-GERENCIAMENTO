@@ -66,7 +66,7 @@ class Projeto  extends Dao{
         $update = $this->con->prepare($sql);
         $update->bindValue(":id", $id);
         $update->execute();
-        echo "ok";
+        
     }
 
     public function Calcular($id,$projeto,$valor,$simular){

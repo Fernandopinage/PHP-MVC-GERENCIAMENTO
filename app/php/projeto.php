@@ -103,7 +103,7 @@ if (isset($_POST['editar'])) {
                     </td>
                     <td><?php echo $obj->getParticipantes(); ?></td>
                     <td><button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editar<?php echo $obj->getID(); ?>">Editar</button></td>
-                    <td><a class="btn btn-danger btn-sm"  id="apagar" name='apagar' onclick="deletar('<?php echo $obj->getID(); ?>');">Deletar</a></td>
+                    <td><a class="btn btn-danger btn-sm"  onclick="deletar('<?php echo $obj->getID(); ?>');">Deletar</a></td>
                     <td><button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#simular<?php echo $obj->getID(); ?>">Investimento</button></td>
                     </td>
                 </tr>
@@ -288,16 +288,17 @@ if (isset($_POST['editar'])) {
 
                 type: 'POST', // Formado de envio
                 url: '../ajax/delete.php', // URL para onde vai ser enviados
-                data: {apagar: apagar},
+                data: {
+                    apagar: apagar
+                },
                 success: function(data) {
-                    console.log(idp)
+                    console.log(apagar)
                 }
 
 
             });
             return false;
 
-            return true;
             //window.location = this.window.location;                    
         } else {
             return false;
