@@ -65,6 +65,25 @@ class Projeto  extends Dao{
         
     }
 
+    public function Calcular($id, $projeto, $valor){
+
+        
+        $sql = "SELECT `projeto_valor` FROM `projeto` where `projeto_ID`=:id ";
+        $select = $this->con->prepare($sql);
+        $select->bindValue(":id", $id);
+        $select->execute();
+        
+        if($select -> rowCount() >=1){
+
+            return json_encode("selec ok");
+
+        }else{
+
+            return json_encode("select mal");
+        }   
+     
+    }
+
 }
 
 

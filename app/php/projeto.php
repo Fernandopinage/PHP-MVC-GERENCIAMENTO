@@ -66,6 +66,7 @@ if (isset($_POST['editar'])) {
                 <td scope="col">Participantes</td>
                 <td scope="col">Alterar</td>
                 <td scope="col">Excluir</td>
+                <td scope="col">Simular</td>
             </tr>
         </thead>
         <tbody>
@@ -100,12 +101,12 @@ if (isset($_POST['editar'])) {
 
                     </td>
                     <td><?php echo $obj->getParticipantes(); ?></td>
-                    <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editar<?php echo $obj->getID(); ?>">Editar</button></td>
-                    <td><a class="btn btn-danger" onclick="deletar(' . $obj->getID() . ');">Deletar</a></td>
+                    <td><button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editar<?php echo $obj->getID(); ?>">Editar</button></td>
+                    <td><a class="btn btn-danger btn-sm" onclick="deletar(' . $obj->getID() . ');">Deletar</a></td>
+                    <td><button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#simular<?php echo $obj->getID(); ?>">Investimento</button></td>
                     </td>
                 </tr>
-
-                <!---------------------------------------------------- Modal Editar ----------------------------------------------------------------->
+                <!---------------------------------------------------- Modal Editar -------------------------------------------------------->
                 <div class="modal fade" id="editar<?php echo $obj->getID() ?>" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
@@ -116,9 +117,7 @@ if (isset($_POST['editar'])) {
 
 
                             <div class="modal-body">
-                                <div class="recebidos">
 
-                                </div>
                                 <form class="form-edita" method='POST'>
                                     <input type="hidden" class="form-control" name="id" id="id" placeholder="" value="<?php echo $obj->getID(); ?>">
                                     <div class="mb-2">
@@ -165,8 +164,8 @@ if (isset($_POST['editar'])) {
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancela</button>
-                                <input type="submit" class="btn btn-primary" value="Editar Registro" name="editar">
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancela</button>
+                                <input type="submit" class="btn btn-primary btn-sm" value="Editar Registro" name="editar">
                             </div>
                             </form>
                         </div>
@@ -175,6 +174,44 @@ if (isset($_POST['editar'])) {
 </div>
 
 <!---------------------------------------------------- Modal FIM ----------------------------------------------------------------->
+<!---------------------------------------------------- Simular Modal ------------------------------------------------------------->
+<div class="modal fade" id="simular<?php echo $obj->getID() ?>" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="simular">Simular Investimento</h5>
+
+            </div>
+
+            <div class="dialogo">
+
+            </div>
+
+            <div class="modal-body">
+
+                <form class="form-simular" method='POST'>
+                    <input type="hidden" class="form-control" name="simularid" id="simularid" placeholder="" value="<?php echo $obj->getID(); ?>">
+                    <div class="mb-2">
+                        <label for="recipient-name" class="col-form-label">Projeto:</label>
+                        <input type="text" class="form-control" name="simularprojeto" id="simularprojeto" placeholder="Projeto" value="<?php echo $obj->getProjeto(); ?>" disabled>
+                    </div>
+                    <div class="mb-2">
+                        <label for="recipient-name" class="col-form-label">Valor do investimento:</label>
+                        <input type="text" class="form-control" name="simularvalor" id="simularvalor" placeholder="R$" onkeypress='return filtroTeclas(event)'>
+                    </div>
+
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn btn-sm" id="calcular" name="calcular" value="Calcular" style="background-color: rgb(253,138,10); color:#fff;">
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------------------------------------------------------------------------------------------------------------>
+
+
 <?php
             }
 
@@ -226,8 +263,8 @@ if (isset($_POST['editar'])) {
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancela</button>
-                <input type="submit" class="btn btn-success" value="Cadastro Projeto" name="cadastraprojeto">
+                <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancela</button>
+                <input type="submit" class="btn btn-success btn-sm" value="Cadastro Projeto" name="cadastraprojeto">
             </div>
             </form>
         </div>
@@ -252,6 +289,24 @@ if (isset($_POST['editar'])) {
             return false;
         }
     }
+</script>
+<script>
+    $(function() {
+
+        $('.form-funcao').submit(function() {
+
+            $.ajax({
+
+                url: '../ajax/simular.php', // URL para onde vai ser enviados
+                type: 'POST', // Formado de envio
+                data: $('.form-simular').serialize(), // class do formulario 
+                success: function(data) { // caso der certo vai aparecer os dados dentro de uma div
+                    console.log('ok')
+                }
+            });
+            return false;
+        });
+    });
 </script>
 
 <!----------------------------------------------------- fim ------------------------------------------------------------------------>
