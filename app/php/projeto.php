@@ -192,8 +192,8 @@ if (isset($_POST['editar'])) {
                 <form class="form-simular" method='POST'>
                     <input type="hidden" class="form-control" name="simularid" id="simularid" placeholder="" value="<?php echo $obj->getID(); ?>">
                     <div class="mb-2">
-                        <label for="recipient-name" class="col-form-label">Projeto:</label>
-                        <input type="text" class="form-control" name="simularprojeto" id="simularprojeto" placeholder="Projeto" value="<?php echo $obj->getProjeto(); ?>" disabled>
+
+                        <input type="hidden" class="form-control" name="simularprojeto" id="simularprojeto" placeholder="Projeto" value="<?php echo $obj->getProjeto(); ?>">
                     </div>
                     <div class="mb-2">
                         <label for="recipient-name" class="col-form-label">Valor do investimento:</label>
@@ -293,16 +293,18 @@ if (isset($_POST['editar'])) {
 <script>
     $(function() {
 
-        $('.form-funcao').submit(function() {
+        $('#calcular').click(function() {
 
             $.ajax({
 
-                url: '../ajax/simular.php', // URL para onde vai ser enviados
                 type: 'POST', // Formado de envio
-                data: $('.form-simular').serialize(), // class do formulario 
-                success: function(data) { // caso der certo vai aparecer os dados dentro de uma div
-                    console.log('ok')
+                url: '../ajax/simular.php', // URL para onde vai ser enviados
+                data: $('.form-simular'),
+                success: function(data) {
+                    $('.dialogo').html(data);
                 }
+
+
             });
             return false;
         });
