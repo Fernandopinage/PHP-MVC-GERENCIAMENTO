@@ -47,11 +47,37 @@ if (isset($_POST['editar'])) {
 
 <div class="container">
 
+    <div class="msg">
+
+        <?php
+        if (isset($_SESSION["msg"])) {
+
+            echo    '<div class="alert alert-success" role="alert" id="msg"> Registro salvo com sucesso </div>';
+        }
+
+        ?>
+
+        <script>
+            $(document).ready(function() {
+
+                setTimeout(function() {
+
+                    $("#msg").alert('close');
+                }, 3000);
+
+            });
+        </script>
+        <?php
+
+        unset($_SESSION["msg"]);
+        ?>
+
+    </div>
 
     <!-- Button trigger modal -->
     <div class="text-left">
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Novo Projeto
+            <img src="../img/outline_add_white_24dp.png">Novo Projeto
         </button>
     </div>
     <br>
@@ -102,9 +128,9 @@ if (isset($_POST['editar'])) {
 
                     </td>
                     <td><?php echo $obj->getParticipantes(); ?></td>
-                    <td><button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editar<?php echo $obj->getID(); ?>">Editar</button></td>
-                    <td><a class="btn btn-danger btn-sm" onclick="deletar('<?php echo $obj->getID(); ?>');">Deletar</a></td>
-                    <td><button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#simular<?php echo $obj->getID(); ?>">Investimento</button></td>
+                    <td><button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editar<?php echo $obj->getID(); ?>"><img src="../img/outline_edit_white_24dp.png">Editar</button></td>
+                    <td><a class="btn btn-danger btn-sm" onclick="deletar('<?php echo $obj->getID(); ?>');"> <img src="../img/outline_delete_outline_white_24dp.png"> Deletar</a></td>
+                    <td><button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#simular<?php echo $obj->getID(); ?>"><img src="../img/outline_laptop_white_24dp.png">Investimento</button></td>
                     </td>
                 </tr>
                 <!---------------------------------------------------- Modal Editar -------------------------------------------------------->
@@ -165,8 +191,8 @@ if (isset($_POST['editar'])) {
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancela</button>
-                                <input type="submit" class="btn btn-primary btn-sm" value="Editar Registro" name="editar">
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal"><img src="../img/outline_close_white_24dp.png">Cancela</button>
+                                <button type="submit" class="btn btn-primary btn-sm" value="Editar Registro" name="editar"><img src="../img/outline_edit_white_24dp.png">Editar </button>
                             </div>
                             </form>
                         </div>
@@ -200,8 +226,8 @@ if (isset($_POST['editar'])) {
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancela</button>
-                        <input type="button" class="btn btn btn-sm" id="calcular" name="calcular" value="Calcular" style="background-color: rgb(253,138,10); color:#fff;">
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal"><img src="../img/outline_close_white_24dp.png">Cancela</button>
+                        <button type="submit" class="btn btn btn-sm" id="calcular" name="calcular" value="Calcular" style="background-color: rgb(253,138,10); color:#fff;"><img src="../img/baseline_calculate_white_24dp.png">Calcular</button>
 
                     </div>
                 </form>
@@ -258,14 +284,23 @@ if (isset($_POST['editar'])) {
 
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Participantes:</label>
-                        <input type="text" class="form-control" name="participantes" id="participantes" placeholder="Ex: Carlos ">
+                        <input type="text" class="form-control" name="participantes" id="participantes" data-role="tagsinput" placeholder="Ex: Carlos ">
                     </div>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancela</button>
-                <input type="submit" class="btn btn-success btn-sm" value="Cadastro Projeto" name="cadastraprojeto">
+                <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal"><img src="../img/outline_close_white_24dp.png">Cancela</button>
+                <button type="submit" class="btn btn-success btn-sm" value="Cadastro Projeto" name="cadastraprojeto"><img src="../img/outline_add_circle_outline_white_24dp.png">Salvar</button>
             </div>
+            <script>
+                $('input').tagsinput({
+                    typeahead: {
+                        source: function(query) {
+                            return $.getJSON('citynames.json');
+                        }
+                    }
+                });
+            </script>
             </form>
         </div>
     </div>
@@ -278,6 +313,7 @@ if (isset($_POST['editar'])) {
         return ((event.charCode >= 48 && event.charCode <= 57) || (event.keyCode == 45 || event.charCode == 46))
     }
 </script>
+
 <script>
     function deletar(id) {
         var mensagem = 'Deseja deletar esse registro ?';

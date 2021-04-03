@@ -19,6 +19,9 @@ class Projeto  extends Dao{
         $insert->bindValue(":participantes",$ClassProjeto->getParticipantes());
         $insert->execute();
 
+        $_SESSION["msg"] = "REGISTRO SALVO COM SUCESSO";
+      
+        header('location: http://localhost/gerenciamento/app/php/index.php?p=projeto/');
     }
 
     public function selectProjeto(){
@@ -57,7 +60,7 @@ class Projeto  extends Dao{
         $update->bindValue(":empresa",$ClassProjeto->getEmpresa());
         $update->bindValue(":participantes",$ClassProjeto->getParticipantes());
         $update->execute();
-      
+        header('location: http://localhost/gerenciamento/app/php/index.php?p=projeto/');
     }
 
     public function deleteProjeto($id){
