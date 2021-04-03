@@ -5,13 +5,17 @@ $projeto = new Projeto();
 
 
    
-    $id = $_POST['simularid'];
-    $projeto = $_POST['simularprojeto'];
-    $valor = $_POST['simularvalor'];
-    $simular = $_POST['simularproposta'];
+    @$id = $_POST['simularid'];
+    @$projeto = $_POST['simularprojeto'];
+    @$valor = $_POST['simularvalor'];
+    @$simular = $_POST['simularproposta'];
   
-    $projeto->Calcular($id,$projeto,$valor,$simular);
-    
+    if($valor > $simular){
+
+        $erro = "Erro";
+        echo json_encode($erro);
+
+    }
  
     
        

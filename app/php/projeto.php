@@ -47,34 +47,6 @@ if (isset($_POST['editar'])) {
 
 <div class="container">
 
-    <div class="msg">
-
-        <?php
-        if (isset($_SESSION["msg"])) {
-
-            if (!empty($_SESSION["msg"])) {
-
-                echo '<div class="alert alert-success" role="alert" id="msg">Registro salvo com sucesso! </div>';
-        ?>
-                <script>
-                    $(document).ready(function() {
-
-                        setTimeout(function() {
-
-                            $("#msg").alert('close');
-                        }, 3000);
-
-                    });
-                </script>
-        <?php
-
-                
-            }
-        }
-
-        ?>
-    </div>
-
     <!-- Button trigger modal -->
     <div class="text-left">
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -285,7 +257,7 @@ if (isset($_POST['editar'])) {
 
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Participantes:</label>
-                        <input type="text" class="form-control" name="participantes" id="participantes" data-role="tagsinput" placeholder="Ex: Carlos ">
+                        <input type="text" class="form-control" name="participantes" id="participantes"  placeholder="Ex: Carlos ">
                     </div>
 
             </div>
@@ -293,15 +265,7 @@ if (isset($_POST['editar'])) {
                 <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal"><img src="../img/outline_close_white_24dp.png">Cancela</button>
                 <button type="submit" class="btn btn-success btn-sm" value="Cadastro Projeto" name="cadastraprojeto"><img src="../img/outline_add_circle_outline_white_24dp.png">Salvar</button>
             </div>
-            <script>
-                $('input').tagsinput({
-                    typeahead: {
-                        source: function(query) {
-                            return $.getJSON('citynames.json');
-                        }
-                    }
-                });
-            </script>
+
             </form>
         </div>
     </div>
@@ -331,14 +295,14 @@ if (isset($_POST['editar'])) {
     $(function() {
 
         $('#calcular').click(function() {
-
+            dados = $(this).serialize();
             $.ajax({
 
                 type: 'POST', // Formado de envio
                 url: '../ajax/simular.php', // URL para onde vai ser enviados
-                data: $('.form-simular'),
-                success: function(data) {
-                    console.log(msg)
+                data: dados,
+                success: function(retorno) {
+                    $('.dialogo').html('retorno'); // imprimindo os dados do formulario na div
                 }
 
 
