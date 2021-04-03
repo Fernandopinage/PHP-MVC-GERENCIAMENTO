@@ -103,7 +103,7 @@ if (isset($_POST['editar'])) {
                     </td>
                     <td><?php echo $obj->getParticipantes(); ?></td>
                     <td><button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editar<?php echo $obj->getID(); ?>">Editar</button></td>
-                    <td><a class="btn btn-danger btn-sm"   onclick="deletar('<?php echo $obj->getID(); ?>');">Deletar</a></td>
+                    <td><a class="btn btn-danger btn-sm" onclick="deletar('<?php echo $obj->getID(); ?>');">Deletar</a></td>
                     <td><button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#simular<?php echo $obj->getID(); ?>">Investimento</button></td>
                     </td>
                 </tr>
@@ -279,13 +279,11 @@ if (isset($_POST['editar'])) {
     }
 </script>
 <script>
-    function deletar(apagar) {
+    function deletar(id) {
         var mensagem = 'Deseja deletar esse registro ?';
-        var id = apagar
         if (window.confirm(mensagem)) {
-            window.open('http://localhost/gerenciamento/app/ajax/delete.php?p=' + id, '_self');
-
-            
+            window.open('http://localhost/gerenciamento/app/ajax/delete.php?id=' + id, '_self');
+            return true;
             //window.location = this.window.location;                    
         } else {
             return false;

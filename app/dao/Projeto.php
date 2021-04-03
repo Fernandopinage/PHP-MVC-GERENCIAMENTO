@@ -61,12 +61,11 @@ class Projeto  extends Dao{
     }
 
     public function deleteProjeto($id){
-
-        $sql = "DELETE FROM `projeto` WHERE `id`=`$id`";
-        $update = $this->con->prepare($sql);
-        $update->bindValue(":id", $id);
-        $update->execute();
         
+        $sql = "DELETE FROM `projeto` WHERE `projeto_id` ='$id'";
+        $delete = $this->con->prepare($sql);
+        $delete->execute();
+ 
     }
 
     public function Calcular($id,$projeto,$valor,$simular){

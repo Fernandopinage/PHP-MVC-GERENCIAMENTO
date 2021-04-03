@@ -2,14 +2,14 @@
 
 include_once "../dao/Projeto.php";
 $projeto = new Projeto();
-if(isset($_GET['p'])){
 
-    $id = $_GET['p'];
+if(isset($_GET['id'])){
+    $id = filter_input(INPUT_GET, 'id');    
     $projeto->deleteProjeto($id);
-    echo json_encode($id);
-
-}
-
-
+    echo "<script>alert('ALUNO DELETADO COM SUCESSO!');window.location = 'http://localhost/gerenciamento/app/php/index.php?p=projeto/';</script>";
+ 
     
+};
+
+  
 ?>
