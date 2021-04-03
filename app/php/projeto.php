@@ -52,26 +52,27 @@ if (isset($_POST['editar'])) {
         <?php
         if (isset($_SESSION["msg"])) {
 
-            echo    '<div class="alert alert-success" role="alert" id="msg"> Registro salvo com sucesso </div>';
+            if (!empty($_SESSION["msg"])) {
+
+                echo '<div class="alert alert-success" role="alert" id="msg">Registro salvo com sucesso! </div>';
+        ?>
+                <script>
+                    $(document).ready(function() {
+
+                        setTimeout(function() {
+
+                            $("#msg").alert('close');
+                        }, 3000);
+
+                    });
+                </script>
+        <?php
+
+                
+            }
         }
 
         ?>
-
-        <script>
-            $(document).ready(function() {
-
-                setTimeout(function() {
-
-                    $("#msg").alert('close');
-                }, 3000);
-
-            });
-        </script>
-        <?php
-
-        unset($_SESSION["msg"]);
-        ?>
-
     </div>
 
     <!-- Button trigger modal -->
@@ -81,7 +82,7 @@ if (isset($_POST['editar'])) {
         </button>
     </div>
     <br>
-    <table class="table table-hover">
+    <table class="table table-hover table-sm">
         <thead>
             <tr>
                 <td scope="col">Codigo</td>
