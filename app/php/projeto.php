@@ -258,7 +258,7 @@ if (isset($_POST['editar'])) {
 
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Participantes:</label>
-                        <input type="text" class="form-control" name="participantes" id="participantes"  placeholder="Ex: Carlos ">
+                        <input type="text" class="form-control" name="participantes" id="participantes" placeholder="Ex: Carlos ">
                     </div>
 
             </div>
@@ -297,30 +297,31 @@ if (isset($_POST['editar'])) {
 
         $('.form-simular').submit(function() {
 
-        
-                
-                $.ajax({
-                    
-                    type: 'POST', // Formado de envio
-                    url: '../ajax/simular.php', // URL para onde vai ser enviados
-                    data: $('.form-simular').serialize(),
-                    success: function(data) {
 
-                            if(data == 1){
 
-                            $('.dialogo').html(' <div class="alert alert-danger" role="alert">Valor abaixo!</div>'); // imprimindo os dados do formulario na div
+            $.ajax({
 
-                            }if (data == 2) {
-                                $('.dialogo').html(' <div class="alert alert-info" role="alert">ok!</div>'); // imprimindo os dados do formulario na div
+                type: 'POST', // Formado de envio
+                url: '../ajax/simular.php', // URL para onde vai ser enviados
+                data: $('.form-simular').serialize(),
+                success: function(data) {
 
-                            } 
-                        
+                    if (data == 1) {
+
+                        $('.dialogo').html(' <div class="alert alert-danger" role="alert">Valor abaixo!</div>'); // imprimindo os dados do formulario na div
+
                     }
-                    
-                    
-                });
-                return false;
-           
+                    if (data == 2) {
+                        $('.dialogo').html(' <div class="alert alert-info" role="alert">ok!</div>'); // imprimindo os dados do formulario na div
+
+                    }
+
+                }
+
+
+            });
+            return false;
+
         });
     });
 </script>
