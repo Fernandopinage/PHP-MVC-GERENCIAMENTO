@@ -10,13 +10,11 @@ $projeto = new Projeto();
     @$valor = $_POST['simularvalor'];
     @$simular = $_POST['simularproposta'];
   
-    if($valor > $simular){
-
-        $erro = "Erro";
-        echo json_encode($erro);
-
+    
+    if($simular < $valor){
+        $msg = '<div class="alert alert-danger" role="alert">Errooo</div>';
+        echo json_encode($msg);
     }
- 
     
        
     

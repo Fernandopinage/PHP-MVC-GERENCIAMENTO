@@ -294,20 +294,27 @@ if (isset($_POST['editar'])) {
 <script>
     $(function() {
 
-        $('#calcular').click(function() {
-            dados = $(this).serialize();
-            $.ajax({
+        $('.form-simular').submit(function() {
 
-                type: 'POST', // Formado de envio
-                url: '../ajax/simular.php', // URL para onde vai ser enviados
-                data: dados,
-                success: function(retorno) {
-                    $('.dialogo').html('retorno'); // imprimindo os dados do formulario na div
-                }
+        
+                
+                $.ajax({
+                    
+                    type: 'POST', // Formado de envio
+                    url: '../ajax/simular.php', // URL para onde vai ser enviados
+                    data: $('.form-simular').serialize(),
+                    success: function(data) {
+                        
+                       
 
-
-            });
-            return false;
+                            $('.dialogo').html(data); // imprimindo os dados do formulario na div
+                        
+                    }
+                    
+                    
+                });
+                return false;
+           
         });
     });
 </script>
