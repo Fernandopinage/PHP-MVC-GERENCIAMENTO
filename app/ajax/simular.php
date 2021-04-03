@@ -12,8 +12,13 @@ $projeto = new Projeto();
   
     
     if($simular < $valor){
-        $msg = '<div class="alert alert-danger" role="alert">Errooo</div>';
-        echo json_encode($msg);
+        
+        $result = 1;
+        echo json_encode($result);
+    }
+    if($simular > $valor){
+        $result = 2;
+        echo json_encode($result);
     }
     
        
