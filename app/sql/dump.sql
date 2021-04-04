@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 04-Abr-2021 às 00:50
+-- Tempo de geração: 04-Abr-2021 às 22:24
 -- Versão do servidor: 10.4.13-MariaDB
 -- versão do PHP: 7.2.32
 
@@ -42,7 +42,9 @@ CREATE TABLE `projeto` (
 --
 
 INSERT INTO `projeto` (`projeto_id`, `projeto_projeto`, `projeto_datainicio`, `projeto_datafim`, `projeto_valor`, `projeto_empresa`, `projeto_participantes`) VALUES
-(23, 'CRM', '0000-00-00', '0000-00-00', 1500.00, '01', 'luiz fernando');
+(1, 'CRM', '2021-04-01', '2021-04-30', 2000.00, '01', 'Luiz'),
+(2, 'SAP', '2021-04-01', '2021-04-30', 3000.00, '02', 'Fernando'),
+(3, 'ERP', '2021-04-01', '2021-05-08', 5000.00, '03', 'Luiz Fernando');
 
 --
 -- Índices para tabelas despejadas
@@ -62,7 +64,7 @@ ALTER TABLE `projeto`
 -- AUTO_INCREMENT de tabela `projeto`
 --
 ALTER TABLE `projeto`
-  MODIFY `projeto_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `projeto_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
