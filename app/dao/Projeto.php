@@ -71,16 +71,7 @@ class Projeto  extends Dao{
  
     }
 
-    public function Calcular($id,$projeto,$valor,$simular){
-
-        $msg = array();
-        if($simular < $valor){
-            $msg[] = 'Erro';
-            
-        }
-     
-        return json_encode($msg);
-    }
+    
 
 }
 

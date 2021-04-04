@@ -194,6 +194,7 @@ if (isset($_POST['editar'])) {
                     <input type="hidden" class="form-control" name="simularid" id="simularid" placeholder="" value="<?php echo $obj->getID(); ?>">
                     <input type="hidden" class="form-control" name="simularprojeto" id="simularprojeto" placeholder="Projeto" value="<?php echo $obj->getProjeto(); ?>">
                     <input type="hidden" class="form-control" name="simularvalor" id="simularvalor" placeholder="R$" value="<?php echo $obj->getValor(); ?>">
+                    <input type="hidden" class="form-control" name="simularempresa" id="simularempresa" placeholder="" value="<?php echo $obj->getEmpresa(); ?>">
                     <div class="mb-2">
                         <label for="recipient-name" class="col-form-label">Valor do investimento:</label>
                         <input type="text" class="form-control" name="simularproposta" id="simularproposta" placeholder="R$" onkeypress='return filtroTeclas(event)'>
@@ -295,6 +296,7 @@ if (isset($_POST['editar'])) {
 <script>
     $(function() {
 
+        
         $('.form-simular').submit(function() {
 
 
@@ -310,11 +312,12 @@ if (isset($_POST['editar'])) {
 
                         $('.dialogo').html(' <div class="alert alert-danger" role="alert">Valor abaixo!</div>'); // imprimindo os dados do formulario na div
 
-                    }
-                    if (data == 2) {
-                        $('.dialogo').html(' <div class="alert alert-info" role="alert">ok!</div>'); // imprimindo os dados do formulario na div
+                    }else{
+
+                        $('.dialogo').html(' <div class="alert alert-success" role="alert">Valor do investimento é <strong>R$'+data+'</strong></div>'); // imprimindo os dados do formulario na div
 
                     }
+                   
 
                 }
 
